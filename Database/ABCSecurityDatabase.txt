@@ -1,0 +1,42 @@
+CREATE TABLE tblusers(
+ID int(8) NOT NULL AUTO_INCREMENT,
+Name varchar(65) NOT NULL,
+DateOfBirth date NOT NULL,
+Gender varchar(6) NOT NULL,
+Password varchar(255) NOT NULL,
+Level varchar(15) NOT NULL,
+PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE tbldeactivateduser(
+DeactivatedID int(11) NOT NULL,
+PRIMARY KEY (DeactivatedID),
+CONSTRAINT fkDeactivatedUser
+FOREIGN KEY (DeactivatedID) REFERENCES tbluser(ID)
+);
+
+
+CREATE TABLE tblcomplaints (
+ID int(8) NOT NULL AUTO_INCREMENT,
+Description varchar(255) NOT NULL,
+DateAndTime datetime NOT NULL,
+AreaOfIncident varchar(255) NOT NULL,
+NumberOfPeopleInvolved int(11) NOT NULL,
+ReportedBy int(8) NOT NULL,
+PRIMARY KEY (ID),
+CONSTRAINT fkComplaintBy 
+FOREIGN KEY (ReportedBy) REFERENCES tblusers(ID)
+);
+
+
+CREATE TABLE tbltasks(
+ID int(8) NOT NULL AUTO_INCREMENT,
+Description varchar(255) NOT NULL,
+DateIssued date NOT NULL,
+IssuedTo int(8) NOT NULL,
+IssuedBy int(8) NOT NULL,
+PRIMARY KEY (ID),
+CONSTRAINT fkTaskIssuedTo
+FOREIGN KEY (IssuedTo) REFERENCES tblusers (ID)
+);
